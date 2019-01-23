@@ -11,13 +11,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.daggerok</groupId>
   <artifactId>e2e-parent</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <scm>
     <url>https://github.com/daggerok/e2e-starter</url>
     <connection>scm:git:https://github.com/daggerok/e2e-starter.git</connection>
-    <tag>v1.0.1</tag>
+    <tag>master</tag>
   </scm>
 
   <developers>

@@ -5,7 +5,7 @@
   <groupId>com.github.daggerok</groupId>
   <artifactId>e2e-starter</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
 
   <modules>
     <module>app</module>
@@ -19,7 +19,7 @@
   <scm>
     <url>https://github.com/daggerok/e2e-starter</url>
     <connection>scm:git:https://github.com/daggerok/e2e-starter.git</connection>
-    <tag>v1.0.0</tag>
+    <tag>master</tag>
   </scm>
 
   <developers>

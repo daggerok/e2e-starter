@@ -41,7 +41,7 @@ script:
 
 before_deploy:
   - cd ${root}
-  - ./mvnw -pl :docs
+  - ./mvnw -pl :docs -P docs
   - mkdir -p ./docs/target/generated-docs
   - cp -Rf ./docs/target/generated-docs/index.html ./docs/target/generated-docs/404.html
 
@@ -54,4 +54,4 @@ deploy:
   on:
     branch: master
   target_branch: gh-pages
-  local-dir: docs/target/generated-docs
+  local-dir: ./docs/target/generated-docs

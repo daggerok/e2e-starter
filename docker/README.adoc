@@ -1,0 +1,33 @@
+
+TODO: Add Selenium Hub infrastructure
+
+.up (windows)
+[source,cmd]
+----
+mvnw -f docker\pom.xml -Pup
+
+or
+
+mvnw -pl :docker -Pup
+----
+
+.watch (windows)
+[source,cmd]
+----
+docker-compose -f docker\src\main\docker\docker-compose.yaml logs -f -t
+----
+
+.down (windows)
+[source,cmd]
+----
+mvnw -pl :docker -Pdown
+
+or
+
+mvnw -f docker\pom.xml -Pdown
+----
+
+.all together (windows)
+----
+mvnw -pl :docker -Pdown & mvnw -pl :app & mvnw -pl :docker -Pup & docker-compose -f docker\src\main\docker\docker-compose.yaml logs -f -t
+----

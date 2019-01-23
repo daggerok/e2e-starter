@@ -1,0 +1,2 @@
+
+Use this parent instead of original spring-boot parent project for all your spring-boot test projects

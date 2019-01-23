@@ -1,0 +1,32 @@
+
+.run e2e tests
+[source,bash]
+----
+mvnw -Dgroups="e2e"
+----
+
+.run except e2e tests
+[source,bash]
+----
+mvnw -Dgroups="!e2e"
+----
+
+.run web tests
+[source,bash]
+----
+mvnw -f e2e-tests\pom.xml -Dgroups="web"
+
+or
+
+mvnw -f e2e-tests\pom.xml -Dgroups="!rest"
+----
+
+.run rest tests
+[source,bash]
+----
+mvnw -f e2e-tests\pom.xml -Dgroups="rest"
+
+or
+
+mvnw -f e2e-tests\pom.xml -Dgroups="!web"
+----

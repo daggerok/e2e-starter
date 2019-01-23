@@ -1,0 +1,10 @@
+
+.build documentation
+[source,cmd]
+----
+mvnw -f docs\pom.xml -Pdocs
+
+or
+
+mvnw -pl :docs -Pdocs
+----

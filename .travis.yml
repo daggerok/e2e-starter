@@ -1,0 +1,57 @@
+notifications:
+  email: false
+
+env:
+  global:
+    - TERM=dumb
+    - secure: B0vUbr5MIZJvYiUY37Q4Whb/2de1doVpbCZom6crYx99GaL/Yx34tgFQBKjW5tjNGpHVUoic4m7mz9k42lF2+7y0rM9JTeVFYpy/8xEYQrBa1YjEb6P75s+1QNxaHZknC3649FXueZRTbhU7lZBw+aHlV9BHFmqXqJnE7BMVs5gx4c6yxgwfEfWUW+5fHHLZtzhjrh+mHuzeD2h2vFjmJZVz8nG73Q7Y3iq1h+dgBr3gqON+H4v11ZnTsyAVfuvIs8tGWVCCWwA8hmytw+WM6SlLEcilP6wEiKg0frzEnd07wbHQW9gHrfC4AK048jqshw7BkrQXiyqZjZksscJF3dAp2v4GsBGQBrTm2RMYat9Ig3bT7y+BDuG4kRsQHqcnm9zTJTFxrm1vhjCe3cLPi239JBmI8IyZ5qzfpjf3ZxKsFPyTl5ROWktR25T3LyOnc7cdW4ydNqg+/dmZ8IcZffG7rW8bkJcUKJPBITWNGCRCWlpUuBDFWnBRl7ncNGzzw1EWUPS3arcQFGTtFCDYFBE8zvOrn/5lYHl8sjKz6534LSWVQ8kqxw1Kx7S5shG+hdlp7GwLTNhsrcqSrwbBKjhkSd5PMc/LYMChDLtEvUpDmcgNtlB9cq7yZTdHI0mpeH+kPge1pO9uSXJ3NVtiqPJa7w3Jx6CgAlbyGJ4h7U8=
+
+language: java
+jdk: oraclejdk8
+
+service:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - jq
+      - curl
+      - tree
+      - sudo
+      - bash
+      - libxml2-utils
+      - python-pip
+      - docker-ce
+
+install: true
+before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  #
+  - sudo pip install docker-compose httpie >/dev/null 2>&1
+  #
+  - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+  - stop_any 80 3000 8080 >/dev/null
+
+script:
+  - export root=$(pwd)
+  - ./mvnw -Dgroups="!e2e" >/dev/null
+
+before_deploy:
+  - cd ${root}
+  - ./mvnw -pl :docs
+  - mkdir -p ./docs/target/generated-docs
+  - cp -Rf ./docs/target/generated-docs/index.html ./docs/target/generated-docs/404.html
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  # travis encrypt GITHUB_TOKEN=<your github repo token> --add
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+    branch: master
+  target_branch: gh-pages
+  local-dir: docs/target/generated-docs
